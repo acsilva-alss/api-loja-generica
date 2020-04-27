@@ -15,32 +15,37 @@ routes.use(bodyParser.urlencoded({ extended: false }));
 routes.post('/auth/register', authController.register);
 
 // FAz autenticação do usuário
-routes.post('/auth/authenticate', authController.authenticate, authMiddleware);
+routes.post('/auth/authenticate', authMiddleware, authController.authenticate);
+
+routes.get('/auth/logout', authController.logout);
 
 /* GerenteController */
 
 //Lista produtos
-routes.get('/admin', gerenteController.listProducts, authMiddleware);
+routes.get('/admin',authMiddleware, gerenteController.listProducts);
 
 //Procura um produto
-routes.get('/admin/:productId', gerenteController.queryProduct, authMiddleware);
+routes.get('/admin/:productId', authMiddleware, gerenteController.queryProduct);
 
 // Adicionar produtos
-routes.post('/admin', gerenteController.addProduct, authMiddleware);
+routes.post('/admin', authMiddleware, gerenteController.addProduct);
 
 //Editar um produto
-routes.put('/admin/:productId', gerenteController.editProduct, authMiddleware);
+routes.put('/admin/:productId', authMiddleware, gerenteController.editProduct);
     
 //deletar um produto
-routes.delete('/admin/:productId', gerenteController.deleteProduct, authMiddleware);
+routes.delete('/admin/:productId', authMiddleware, gerenteController.deleteProduct);
+
+
 
 /* normalUserController */
 
 //Lista produtos
-routes.get('/user', normalUserController.listProducts, authMiddleware);
+routes.get('/user', authMiddleware, normalUserController.listProducts);
 
 //Procura um produto
-routes.get('/user/:productId', normalUserController.queryProduct, authMiddleware);
+routes.get('/user/:productId', authMiddleware, normalUserController.queryProduct);
+
 
 
 module.exports = routes;

@@ -48,5 +48,9 @@ module.exports = {
             user, 
             token: generateToken({id: user.id}),
         });
+    },
+
+    async logout(req, res){
+        res.status(200).send({token: null});
     }
 }
